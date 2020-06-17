@@ -62,7 +62,7 @@ imageBackSide.setParent(boardBase)
 
 let title = new Entity()
 title.addComponent(new TextShape(''))
-title.getComponent(TextShape).fontSize = 2
+title.getComponent(TextShape).fontSize = 3
 title.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
 title.getComponent(TextShape).color = Color3.Black()
 title.getComponent(TextShape).hTextAlign = 'left'
@@ -78,7 +78,7 @@ title.setParent(boardBase)
 
 let titleBackSide = new Entity()
 titleBackSide.addComponent(new TextShape(''))
-titleBackSide.getComponent(TextShape).fontSize = 2
+titleBackSide.getComponent(TextShape).fontSize = 3
 titleBackSide.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
 titleBackSide.getComponent(TextShape).color = Color3.Black()
 titleBackSide.getComponent(TextShape).hTextAlign = 'left'
@@ -97,7 +97,7 @@ let coords = new Entity()
 coords.addComponent(new TextShape(''))
 coords.addComponent(
   new Transform({
-    position: new Vector3(-1.8, -1.3, -0.05),
+    position: new Vector3(-1.75, -1.55, -0.05),
   })
 )
 coords.getComponent(TextShape).fontSize = 2
@@ -110,7 +110,7 @@ let coordsBackSide = new Entity()
 coordsBackSide.addComponent(new TextShape(''))
 coordsBackSide.addComponent(
   new Transform({
-    position: new Vector3(1.8, -1.3, 0.05),
+    position: new Vector3(1.75, -1.55, 0.05),
     rotation: Quaternion.Euler(0, 180, 0),
   })
 )
@@ -153,7 +153,7 @@ export function createDots(dotAmount: number) {
     dot.addComponent(inactiveEventMaterial)
     dot.addComponent(
       new Transform({
-        position: new Vector3(offset, -1.6, -0.05),
+        position: new Vector3(offset, -1.9, -0.05),
         scale: new Vector3(0.05, 0.05, 0.05),
       })
     )
@@ -165,7 +165,7 @@ export function createDots(dotAmount: number) {
     dotBackSide.addComponent(inactiveEventMaterial)
     dotBackSide.addComponent(
       new Transform({
-        position: new Vector3(-offset, -1.6, 0.05),
+        position: new Vector3(-offset, -1.9, 0.05),
         scale: new Vector3(0.05, 0.05, 0.05),
       })
     )
@@ -184,10 +184,11 @@ export function displayEvent(events: any[], currentEvent: number) {
     eventCoords = shortenText(event.scene_name, 25) + '  ' + eventCoords
   }
 
-  title.getComponent(TextShape).value = splitTextIntoLines(event.name, 28)
+  title.getComponent(TextShape).value = splitTextIntoLines(event.name, 25, 2)
   titleBackSide.getComponent(TextShape).value = splitTextIntoLines(
     event.name,
-    28
+    25,
+    2
   )
   coords.getComponent(TextShape).value = eventCoords
   coordsBackSide.getComponent(TextShape).value = eventCoords
