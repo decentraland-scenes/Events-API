@@ -10,7 +10,7 @@ let bannerSwitcher = new Entity()
 engine.addEntity(bannerSwitcher)
 bannerSwitcher.addComponent(
   new utils.Interval(4000, () => {
-    displayEvent(events[currentEvent])
+    displayEvent(events, currentEvent)
     currentEvent += 1
     if (currentEvent >= events.length) {
       currentEvent = 0
