@@ -175,6 +175,7 @@ export function createDots(dotAmount: number) {
 }
 
 export function displayEvent(events: any[], currentEvent: number) {
+  if (events.length <= 0) return
   let event = events[currentEvent]
   imageMaterial.albedoTexture = new Texture(event.image)
   image.addComponentOrReplace(imageMaterial)
@@ -209,17 +210,19 @@ export function displayEvent(events: any[], currentEvent: number) {
     )
   )
 
-  if (dots.length <= 0) {
+  if (dots.length <= 0 && events.length > 1) {
     createDots(events.length)
   }
 
-  for (let i = 0; i < dots.length; i++) {
-    if (i === currentEvent) {
-      dots[i].addComponentOrReplace(activeEventMaterial)
-      dotsBackSide[i].addComponentOrReplace(activeEventMaterial)
-    } else {
-      dots[i].addComponentOrReplace(inactiveEventMaterial)
-      dotsBackSide[i].addComponentOrReplace(inactiveEventMaterial)
+  if (events.length > 1) {
+    for (let i = 0; i < dots.length; i++) {
+      if (i === currentEvent) {
+        dots[i].addComponentOrReplace(activeEventMaterial)
+        dotsBackSide[i].addComponentOrReplace(activeEventMaterial)
+      } else {
+        dots[i].addComponentOrReplace(inactiveEventMaterial)
+        dotsBackSide[i].addComponentOrReplace(inactiveEventMaterial)
+      }
     }
   }
 }
