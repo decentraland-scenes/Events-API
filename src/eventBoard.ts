@@ -2,6 +2,7 @@ import { splitTextIntoLines, shortenText } from './utils'
 
 let imageMaterial = new Material()
 imageMaterial.roughness = 1
+imageMaterial.metallic = 0
 imageMaterial.specularIntensity = 0
 
 let invisibleMaterial = new Material()
