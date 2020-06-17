@@ -40,7 +40,7 @@ let image = new Entity()
 image.addComponent(new PlaneShape())
 image.addComponent(
   new Transform({
-    position: new Vector3(0, 0.4, -0.05),
+    position: new Vector3(0, 0.4, -0.04),
     scale: new Vector3(4.25, 2.125, 1),
     rotation: Quaternion.Euler(0, 0, 180),
   })
@@ -52,7 +52,7 @@ let imageBackSide = new Entity()
 imageBackSide.addComponent(new PlaneShape())
 imageBackSide.addComponent(
   new Transform({
-    position: new Vector3(0, 0.4, 0.05),
+    position: new Vector3(0, 0.4, 0.04),
     scale: new Vector3(4.25, 2.125, 1),
     rotation: Quaternion.Euler(0, 180, 180),
   })
@@ -71,7 +71,7 @@ title.getComponent(TextShape).height = 2
 title.getComponent(TextShape).width = 8
 title.addComponent(
   new Transform({
-    position: new Vector3(-2, -1.1, -0.05),
+    position: new Vector3(-2, -1.1, -0.04),
   })
 )
 title.setParent(boardBase)
@@ -87,7 +87,7 @@ titleBackSide.getComponent(TextShape).height = 2
 titleBackSide.getComponent(TextShape).width = 8
 titleBackSide.addComponent(
   new Transform({
-    position: new Vector3(2, -1.1, 0.05),
+    position: new Vector3(2, -1.1, 0.04),
     rotation: Quaternion.Euler(0, 180, 0),
   })
 )
@@ -97,7 +97,7 @@ let coords = new Entity()
 coords.addComponent(new TextShape(''))
 coords.addComponent(
   new Transform({
-    position: new Vector3(-1.75, -1.55, -0.05),
+    position: new Vector3(-1.75, -1.555, -0.04),
   })
 )
 coords.getComponent(TextShape).fontSize = 2
@@ -110,7 +110,7 @@ let coordsBackSide = new Entity()
 coordsBackSide.addComponent(new TextShape(''))
 coordsBackSide.addComponent(
   new Transform({
-    position: new Vector3(1.75, -1.55, 0.05),
+    position: new Vector3(1.75, -1.555, 0.04),
     rotation: Quaternion.Euler(0, 180, 0),
   })
 )

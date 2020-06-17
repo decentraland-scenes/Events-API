@@ -24,8 +24,11 @@ async function checkTime(start: Date, end: Date) {
     await getTime()
   }
 
-  if (currentTime >= start && currentTime <= end) {
-    log('Event is on!')
+  if (
+    currentTime.valueOf() >= start.valueOf() &&
+    currentTime.valueOf() <= end.valueOf()
+  ) {
+    log('Event is on! ', start.getDate())
     return true
   }
   return false
@@ -41,13 +44,20 @@ export async function getEvents() {
     log(json)
 
     for (let event of json.data) {
-      if (checkTime(event.start_at, event.finish_at)) {
+      if (
+        (await checkTime(
+          new Date(event.start_at),
+          new Date(event.finish_at)
+        )) == true
+      ) {
         events.push(event)
       }
     }
 
     log(events)
-    displayEvent(events[0])
+    if (events.length > 0) {
+      displayEvent(events, 0)
+    }
   } catch (e) {
     log('error getting event data ', e)
   }
