@@ -1,4 +1,126 @@
-import { splitTextIntoLines, shortenText } from './utils'
+import { splitTextIntoLines, shortenText } from './helperFunctions'
+import { getEvents } from './checkApi'
+
+export async function createEventsBoard(position: TranformConstructorArgs) {
+  let events = await getEvents()
+
+  if (events.length <= 0) {
+    return
+  }
+
+  board.addComponent(new Transform({}))
+  board.addComponent(new GLTFShape('models/events-UI.glb'))
+  board.setParent(boardBase)
+
+  boardBase.addComponent(new Transform(position))
+  engine.addEntity(boardBase)
+
+  image.addComponent(new PlaneShape())
+  image.addComponent(
+    new Transform({
+      position: new Vector3(0, 0.4, -0.04),
+      scale: new Vector3(4.25, 2.125, 1),
+      rotation: Quaternion.Euler(0, 0, 180),
+    })
+  )
+  image.addComponent(imageMaterial)
+  image.setParent(boardBase)
+
+  imageBackSide.addComponent(new PlaneShape())
+  imageBackSide.addComponent(
+    new Transform({
+      position: new Vector3(0, 0.4, 0.04),
+      scale: new Vector3(4.25, 2.125, 1),
+      rotation: Quaternion.Euler(0, 180, 180),
+    })
+  )
+  imageBackSide.addComponent(imageMaterial)
+  imageBackSide.setParent(boardBase)
+
+  title.addComponent(new TextShape(''))
+  title.getComponent(TextShape).fontSize = 3
+  title.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
+  title.getComponent(TextShape).color = Color3.Black()
+  title.getComponent(TextShape).hTextAlign = 'left'
+  title.getComponent(TextShape).lineCount = 2
+  title.getComponent(TextShape).height = 2
+  title.getComponent(TextShape).width = 8
+  title.addComponent(
+    new Transform({
+      position: new Vector3(-2, -1.1, -0.04),
+    })
+  )
+  title.setParent(boardBase)
+
+  titleBackSide.addComponent(new TextShape(''))
+  titleBackSide.getComponent(TextShape).fontSize = 3
+  titleBackSide.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
+  titleBackSide.getComponent(TextShape).color = Color3.Black()
+  titleBackSide.getComponent(TextShape).hTextAlign = 'left'
+  titleBackSide.getComponent(TextShape).lineCount = 2
+  titleBackSide.getComponent(TextShape).height = 2
+  titleBackSide.getComponent(TextShape).width = 8
+  titleBackSide.addComponent(
+    new Transform({
+      position: new Vector3(2, -1.1, 0.04),
+      rotation: Quaternion.Euler(0, 180, 0),
+    })
+  )
+  titleBackSide.setParent(boardBase)
+
+  coords.addComponent(new TextShape(''))
+  coords.addComponent(
+    new Transform({
+      position: new Vector3(-1.75, -1.555, -0.04),
+    })
+  )
+  coords.getComponent(TextShape).fontSize = 2
+  coords.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
+  coords.getComponent(TextShape).color = Color3.Black()
+  coords.getComponent(TextShape).hTextAlign = 'left'
+  coords.setParent(boardBase)
+
+  coordsBackSide.addComponent(new TextShape(''))
+  coordsBackSide.addComponent(
+    new Transform({
+      position: new Vector3(1.75, -1.555, 0.04),
+      rotation: Quaternion.Euler(0, 180, 0),
+    })
+  )
+  coordsBackSide.getComponent(TextShape).fontSize = 2
+  coordsBackSide.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
+  coordsBackSide.getComponent(TextShape).color = Color3.Black()
+  coordsBackSide.getComponent(TextShape).hTextAlign = 'left'
+  coordsBackSide.setParent(boardBase)
+
+  clickPanel.addComponent(invisibleMaterial)
+  clickPanel.addComponent(new PlaneShape())
+  clickPanel.addComponent(
+    new Transform({
+      scale: new Vector3(5, 4.5, 1),
+      position: new Vector3(0, 0, -0.2),
+    })
+  )
+  clickPanel.setParent(boardBase)
+
+  clickPanelBackSide.addComponent(invisibleMaterial)
+  clickPanelBackSide.addComponent(new PlaneShape())
+  clickPanelBackSide.addComponent(
+    new Transform({
+      scale: new Vector3(5, 4.5, 1),
+      position: new Vector3(0, 0, 0.2),
+    })
+  )
+  clickPanelBackSide.setParent(boardBase)
+
+  displayEvent(events, 0)
+
+  if (events.length > 1) {
+    engine.addSystem(new SwitchEventSystem(events, 4))
+  }
+}
+
+let bannerSwitcher = new Entity()
 
 let imageMaterial = new Material()
 imageMaterial.roughness = 1
@@ -21,130 +143,51 @@ activeEventMaterial.albedoTexture = new Texture('images/red.png')
 activeEventMaterial.alphaTexture = new Texture('images/red.png')
 
 let boardBase = new Entity()
-boardBase.addComponent(
-  new Transform({
-    position: new Vector3(8, 2.5, 8),
-  })
-)
-engine.addEntity(boardBase)
 
 let board = new Entity()
-board.addComponent(
-  new Transform({
-    //scale: new Vector3(5, 4.5, 1),
-  })
-)
-board.addComponent(new GLTFShape('models/events-UI.glb'))
-board.setParent(boardBase)
 
 let image = new Entity()
-image.addComponent(new PlaneShape())
-image.addComponent(
-  new Transform({
-    position: new Vector3(0, 0.4, -0.04),
-    scale: new Vector3(4.25, 2.125, 1),
-    rotation: Quaternion.Euler(0, 0, 180),
-  })
-)
-image.addComponent(imageMaterial)
-image.setParent(boardBase)
 
 let imageBackSide = new Entity()
-imageBackSide.addComponent(new PlaneShape())
-imageBackSide.addComponent(
-  new Transform({
-    position: new Vector3(0, 0.4, 0.04),
-    scale: new Vector3(4.25, 2.125, 1),
-    rotation: Quaternion.Euler(0, 180, 180),
-  })
-)
-imageBackSide.addComponent(imageMaterial)
-imageBackSide.setParent(boardBase)
 
 let title = new Entity()
-title.addComponent(new TextShape(''))
-title.getComponent(TextShape).fontSize = 3
-title.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
-title.getComponent(TextShape).color = Color3.Black()
-title.getComponent(TextShape).hTextAlign = 'left'
-title.getComponent(TextShape).lineCount = 2
-title.getComponent(TextShape).height = 2
-title.getComponent(TextShape).width = 8
-title.addComponent(
-  new Transform({
-    position: new Vector3(-2, -1.1, -0.04),
-  })
-)
-title.setParent(boardBase)
 
 let titleBackSide = new Entity()
-titleBackSide.addComponent(new TextShape(''))
-titleBackSide.getComponent(TextShape).fontSize = 3
-titleBackSide.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
-titleBackSide.getComponent(TextShape).color = Color3.Black()
-titleBackSide.getComponent(TextShape).hTextAlign = 'left'
-titleBackSide.getComponent(TextShape).lineCount = 2
-titleBackSide.getComponent(TextShape).height = 2
-titleBackSide.getComponent(TextShape).width = 8
-titleBackSide.addComponent(
-  new Transform({
-    position: new Vector3(2, -1.1, 0.04),
-    rotation: Quaternion.Euler(0, 180, 0),
-  })
-)
-titleBackSide.setParent(boardBase)
 
 let coords = new Entity()
-coords.addComponent(new TextShape(''))
-coords.addComponent(
-  new Transform({
-    position: new Vector3(-1.75, -1.555, -0.04),
-  })
-)
-coords.getComponent(TextShape).fontSize = 2
-coords.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
-coords.getComponent(TextShape).color = Color3.Black()
-coords.getComponent(TextShape).hTextAlign = 'left'
-coords.setParent(boardBase)
 
 let coordsBackSide = new Entity()
-coordsBackSide.addComponent(new TextShape(''))
-coordsBackSide.addComponent(
-  new Transform({
-    position: new Vector3(1.75, -1.555, 0.04),
-    rotation: Quaternion.Euler(0, 180, 0),
-  })
-)
-coordsBackSide.getComponent(TextShape).fontSize = 2
-coordsBackSide.getComponent(TextShape).font = new Font(Fonts.SanFrancisco)
-coordsBackSide.getComponent(TextShape).color = Color3.Black()
-coordsBackSide.getComponent(TextShape).hTextAlign = 'left'
-coordsBackSide.setParent(boardBase)
 
 let clickPanel = new Entity()
-clickPanel.addComponent(invisibleMaterial)
-clickPanel.addComponent(new PlaneShape())
-clickPanel.addComponent(
-  new Transform({
-    scale: new Vector3(5, 4.5, 1),
-    position: new Vector3(0, 0, -0.2),
-  })
-)
-clickPanel.setParent(boardBase)
 
 let clickPanelBackSide = new Entity()
-clickPanelBackSide.addComponent(invisibleMaterial)
-clickPanelBackSide.addComponent(new PlaneShape())
-clickPanelBackSide.addComponent(
-  new Transform({
-    scale: new Vector3(5, 4.5, 1),
-    position: new Vector3(0, 0, 0.2),
-  })
-)
-clickPanelBackSide.setParent(boardBase)
 
 let dots = []
 let dotsBackSide = []
+
+class SwitchEventSystem implements ISystem {
+  timer: number
+  interval: number
+  currentEvent: number
+  events: any[]
+  constructor(events: any[], interval: number) {
+    this.events = events
+    this.timer = interval
+    this.interval = interval
+    this.currentEvent = 0
+  }
+  update(dt: number) {
+    this.timer -= dt
+    if (this.timer < 0) {
+      this.timer += this.interval
+      displayEvent(this.events, this.currentEvent)
+      this.currentEvent += 1
+      if (this.currentEvent >= this.events.length) {
+        this.currentEvent = 0
+      }
+    }
+  }
+}
 
 export function createDots(dotAmount: number) {
   for (let i = 0; i < dotAmount; i++) {
@@ -197,7 +240,7 @@ export function displayEvent(events: any[], currentEvent: number) {
   clickPanel.addComponentOrReplace(
     new OnPointerDown(
       (e) => {
-        teleportTo(eventCoords)
+        teleportTo(event.x.toString() + ',' + event.y.toString())
       },
       { hoverText: 'Teleport to event' }
     )
@@ -205,7 +248,7 @@ export function displayEvent(events: any[], currentEvent: number) {
   clickPanelBackSide.addComponentOrReplace(
     new OnPointerDown(
       (e) => {
-        teleportTo(eventCoords)
+        teleportTo(event.x.toString() + ',' + event.y.toString())
       },
       { hoverText: 'Teleport to event' }
     )
