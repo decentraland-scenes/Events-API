@@ -47,7 +47,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   title.getComponent(TextShape).width = 8
   title.addComponent(
     new Transform({
-      position: new Vector3(-2, -1.1, -0.04),
+      position: new Vector3(-1.94, -1.05, -0.04),
     })
   )
   title.setParent(boardBase)
@@ -62,7 +62,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   titleBackSide.getComponent(TextShape).width = 8
   titleBackSide.addComponent(
     new Transform({
-      position: new Vector3(2, -1.1, 0.04),
+      position: new Vector3(1.94, -1.05, 0.04),
       rotation: Quaternion.Euler(0, 180, 0),
     })
   )
