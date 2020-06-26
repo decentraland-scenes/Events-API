@@ -1,12 +1,18 @@
-# events-api
+# Events API Board
 
-Call the Decentraland Events API to display events that are currently going on
+Call the Decentraland Events API to display events that are currently going on. If there are several active at the same time, it will cycle through up to 5 events.
+
+Events that are currently going on have a `live` field = _true_, so it's easy to filter through the returned events to only pick those that are live.
+
+The board displays the event's title, screenshot, location, and location name (if applicable). The board also works as a teleport when clicked, taking players to the currently displayed event.
+
+![](screenshot/screenshot.png)
 
 ## About the events API:
 
-root URL: https://events.decentraland.org/api/events/
+Root URL: https://events.decentraland.org/api/events/
 
-Events are always ordered by their start_at time
+Events are always ordered by their `start_at` time
 
 optional params:
 
