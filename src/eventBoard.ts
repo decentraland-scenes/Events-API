@@ -229,10 +229,10 @@ export function displayEvent(events: any[], currentEvent: number) {
     eventCoords = shortenText(event.scene_name, 25) + '  ' + eventCoords
   }
 
-  title.getComponent(TextShape).value = splitTextIntoLines(event.name, 25, 2)
+  title.getComponent(TextShape).value = splitTextIntoLines(event.name, 24, 2)
   titleBackSide.getComponent(TextShape).value = splitTextIntoLines(
     event.name,
-    25,
+    24,
     2
   )
   coords.getComponent(TextShape).value = eventCoords
