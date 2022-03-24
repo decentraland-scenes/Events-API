@@ -2,7 +2,7 @@ import { splitTextIntoLines, shortenText } from './helperFunctions'
 import { getEvents } from './checkApi'
 
 export async function createEventsBoard(position: TranformConstructorArgs) {
-  let events = await getEvents()
+  const events = await getEvents()
 
   if (events.length <= 0) {
     return
@@ -20,7 +20,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
     new Transform({
       position: new Vector3(0, 0.4, -0.04),
       scale: new Vector3(4.25, 2.125, 1),
-      rotation: Quaternion.Euler(0, 0, 180),
+      rotation: Quaternion.Euler(0, 0, 180)
     })
   )
   image.addComponent(imageMaterial)
@@ -31,7 +31,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
     new Transform({
       position: new Vector3(0, 0.4, 0.04),
       scale: new Vector3(4.25, 2.125, 1),
-      rotation: Quaternion.Euler(0, 180, 180),
+      rotation: Quaternion.Euler(0, 180, 180)
     })
   )
   imageBackSide.addComponent(imageMaterial)
@@ -47,7 +47,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   title.getComponent(TextShape).width = 8
   title.addComponent(
     new Transform({
-      position: new Vector3(-1.94, -1.05, -0.04),
+      position: new Vector3(-1.94, -1.05, -0.04)
     })
   )
   title.setParent(boardBase)
@@ -63,7 +63,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   titleBackSide.addComponent(
     new Transform({
       position: new Vector3(1.94, -1.05, 0.04),
-      rotation: Quaternion.Euler(0, 180, 0),
+      rotation: Quaternion.Euler(0, 180, 0)
     })
   )
   titleBackSide.setParent(boardBase)
@@ -71,7 +71,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   coords.addComponent(new TextShape(''))
   coords.addComponent(
     new Transform({
-      position: new Vector3(-1.75, -1.555, -0.04),
+      position: new Vector3(-1.75, -1.555, -0.04)
     })
   )
   coords.getComponent(TextShape).fontSize = 2
@@ -84,7 +84,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   coordsBackSide.addComponent(
     new Transform({
       position: new Vector3(1.75, -1.555, 0.04),
-      rotation: Quaternion.Euler(0, 180, 0),
+      rotation: Quaternion.Euler(0, 180, 0)
     })
   )
   coordsBackSide.getComponent(TextShape).fontSize = 2
@@ -98,7 +98,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   clickPanel.addComponent(
     new Transform({
       scale: new Vector3(5, 4.5, 1),
-      position: new Vector3(0, 0, -0.2),
+      position: new Vector3(0, 0, -0.2)
     })
   )
   clickPanel.setParent(boardBase)
@@ -108,7 +108,7 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   clickPanelBackSide.addComponent(
     new Transform({
       scale: new Vector3(5, 4.5, 1),
-      position: new Vector3(0, 0, 0.2),
+      position: new Vector3(0, 0, 0.2)
     })
   )
   clickPanelBackSide.setParent(boardBase)
@@ -120,50 +120,50 @@ export async function createEventsBoard(position: TranformConstructorArgs) {
   }
 }
 
-let bannerSwitcher = new Entity()
+const bannerSwitcher = new Entity()
 
-let imageMaterial = new Material()
+const imageMaterial = new Material()
 imageMaterial.roughness = 1
 imageMaterial.metallic = 0
 imageMaterial.specularIntensity = 0
 
-let invisibleMaterial = new Material()
+const invisibleMaterial = new Material()
 invisibleMaterial.albedoColor = new Color4(0, 0, 0, 0)
 
-let inactiveEventMaterial = new Material()
+const inactiveEventMaterial = new Material()
 inactiveEventMaterial.roughness = 1
 inactiveEventMaterial.specularIntensity = 0
 inactiveEventMaterial.albedoTexture = new Texture('images/gray.png')
 inactiveEventMaterial.alphaTexture = new Texture('images/gray.png')
 
-let activeEventMaterial = new Material()
+const activeEventMaterial = new Material()
 activeEventMaterial.roughness = 1
 activeEventMaterial.specularIntensity = 0
 activeEventMaterial.albedoTexture = new Texture('images/red.png')
 activeEventMaterial.alphaTexture = new Texture('images/red.png')
 
-let boardBase = new Entity()
+const boardBase = new Entity()
 
-let board = new Entity()
+const board = new Entity()
 
-let image = new Entity()
+const image = new Entity()
 
-let imageBackSide = new Entity()
+const imageBackSide = new Entity()
 
-let title = new Entity()
+const title = new Entity()
 
-let titleBackSide = new Entity()
+const titleBackSide = new Entity()
 
-let coords = new Entity()
+const coords = new Entity()
 
-let coordsBackSide = new Entity()
+const coordsBackSide = new Entity()
 
-let clickPanel = new Entity()
+const clickPanel = new Entity()
 
-let clickPanelBackSide = new Entity()
+const clickPanelBackSide = new Entity()
 
-let dots = []
-let dotsBackSide = []
+const dots = []
+const dotsBackSide = []
 
 class SwitchEventSystem implements ISystem {
   timer: number
@@ -191,26 +191,26 @@ class SwitchEventSystem implements ISystem {
 
 export function createDots(dotAmount: number) {
   for (let i = 0; i < dotAmount; i++) {
-    let offset = (i - dotAmount / 2) * 0.1
-    let dot = new Entity()
+    const offset = (i - dotAmount / 2) * 0.1
+    const dot = new Entity()
     dot.addComponent(new PlaneShape())
     dot.addComponent(inactiveEventMaterial)
     dot.addComponent(
       new Transform({
         position: new Vector3(offset, -1.9, -0.05),
-        scale: new Vector3(0.05, 0.05, 0.05),
+        scale: new Vector3(0.05, 0.05, 0.05)
       })
     )
     dot.setParent(boardBase)
     dots.push(dot)
 
-    let dotBackSide = new Entity()
+    const dotBackSide = new Entity()
     dotBackSide.addComponent(new PlaneShape())
     dotBackSide.addComponent(inactiveEventMaterial)
     dotBackSide.addComponent(
       new Transform({
         position: new Vector3(-offset, -1.9, 0.05),
-        scale: new Vector3(0.05, 0.05, 0.05),
+        scale: new Vector3(0.05, 0.05, 0.05)
       })
     )
     dotBackSide.setParent(boardBase)
@@ -220,7 +220,7 @@ export function createDots(dotAmount: number) {
 
 export function displayEvent(events: any[], currentEvent: number) {
   if (events.length <= 0) return
-  let event = events[currentEvent]
+  const event = events[currentEvent]
   imageMaterial.albedoTexture = new Texture(event.image)
   image.addComponentOrReplace(imageMaterial)
   imageBackSide.addComponentOrReplace(imageMaterial)

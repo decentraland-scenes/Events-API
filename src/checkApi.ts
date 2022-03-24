@@ -1,16 +1,16 @@
 import { displayEvent } from './eventBoard'
 
 export async function getEvents() {
-  let events: any[] = []
-  let url = 'https://events.decentraland.org/api/events/?limit=5'
+  const events: any[] = []
+  const url = 'https://events.decentraland.org/api/events/?limit=5'
 
   try {
-    let response = await fetch(url)
-    let json = await response.json()
+    const response = await fetch(url)
+    const json = await response.json()
 
     log(json)
 
-    for (let event of json.data) {
+    for (const event of json.data) {
       if (event.live) {
         events.push(event)
       }

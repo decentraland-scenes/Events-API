@@ -5,7 +5,7 @@ export function splitTextIntoLines(
 ) {
   let finalText: string = ''
   for (let i = 0; i < text.length; i++) {
-    let lines = finalText.split('\n')
+    const lines = finalText.split('\n')
 
     if (lines[lines.length - 1].length >= maxLenght && i !== text.length) {
       if (finalText[finalText.length - 1] !== ' ') {
